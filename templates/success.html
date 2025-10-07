@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boleto Validado com Sucesso | Heineken</title>
+    <meta
+      name="description"
+      content="Seu boleto foi validado com sucesso! Confira os detalhes da validação."
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        /* Cores oficiais da Heineken */
+        --heineken-green: #205527;
+        --heineken-green-medium: #288154;
+        --heineken-green-light: #5acd8b;
+        --heineken-green-bright: #a7e833;
+        --heineken-red: #e30613;
+        --heineken-star-green: #00561f;
+
+        /* Cores de sucesso e confiança */
+        --success-green: #288154;
+        --success-green-light: #5acd8b;
+        --success-green-bright: #a7e833;
+        --success-bg: #f8fffe;
+        --success-border: #d4edda;
+
+        /* Cores neutras otimizadas para UI/UX */
+        --white: #ffffff;
+        --light-gray: #f8f9fa;
+        --border-light: #eef0eb;
+        --text-primary: #288154;
+        --text-secondary: #1f5d3f;
+        --text-muted: #4a6b56;
+        --text-disabled: #7a8b7f;
+
+        /* Sombras e efeitos */
+        --shadow-light: 0 2px 8px rgba(32, 85, 39, 0.08);
+        --shadow-medium: 0 4px 16px rgba(32, 85, 39, 0.12);
+        --shadow-success: 0 4px 20px rgba(40, 129, 84, 0.15);
+        --border-radius: 6px;
+        --border-radius-large: 12px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "HEINEKEN Core", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, sans-serif;
+        background: #ffffff;
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.6;
+        position: relative;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #ffffff;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: var(--heineken-green);
+        font-weight: 700;
+        font-size: 24px;
+        transition: var(--transition);
+      }
+
+      .logo:hover {
+        transform: translateY(-2px);
+      }
+
+      .logo svg {
+        height: 50px;
+        width: auto;
+        transition: var(--transition);
+      }
+
+      .logo:hover svg {
+        transform: scale(1.05);
+      }
+
+      /* Success Card */
+      .success-card {
+        background: #ffffff;
+        border-radius: var(--border-radius-large);
+        padding: 48px 40px;
+        border: 2px solid var(--success-green);
+        text-align: center;
+        max-width: 680px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-success);
+        animation: slideUp 0.6s ease-out;
+      }
+
+      /* Borda superior verde de sucesso */
+      .success-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--success-green),
+          var(--success-green-light)
+        );
+        border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+      }
+
+      /* Success Icon */
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(
+          135deg,
+          var(--success-green),
+          var(--success-green-light)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 32px;
+        position: relative;
+        box-shadow: 0 8px 24px rgba(40, 129, 84, 0.25);
+        animation: bounceIn 0.8s ease-out 0.2s both;
+      }
+
+      .success-icon::before {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--success-green-bright),
+          var(--success-green-light)
+        );
+        opacity: 0.3;
+        animation: pulse 2s infinite;
+      }
+
+      .success-icon i {
+        color: var(--white);
+        font-size: 32px;
+        font-weight: 700;
+        position: relative;
+        z-index: 1;
+        animation: checkmark 0.6s ease-out 0.4s both;
+      }
+
+      /* Success Message */
+      .success-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #288154;
+        margin-bottom: 16px;
+        animation: fadeInUp 0.6s ease-out 0.4s both;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+
+      .success-subtitle {
+        font-size: 18px;
+        color: #288154;
+        margin-bottom: 40px;
+        animation: fadeInUp 0.6s ease-out 0.5s both;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+        font-weight: 400;
+      }
+
+      /* Code Display */
+      .code-display {
+        background: #ffffff;
+        border: 2px solid var(--success-green);
+        border-radius: var(--border-radius);
+        padding: 24px;
+        margin: 32px 0;
+        position: relative;
+        animation: fadeInUp 0.6s ease-out 0.6s both;
+        box-shadow: var(--shadow-light);
+      }
+
+      .code-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #288154;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
+
+      .code-value {
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        font-weight: 500;
+        color: #288154;
+        word-break: break-all;
+        line-height: 1.4;
+        letter-spacing: 0.5px;
+      }
+
+      /* Stats */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin: 32px 0;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        animation: fadeInUp 0.6s ease-out 0.7s both;
+      }
+
+      .stat-item {
+        background: #ffffff;
+        border: 2px solid var(--success-green);
+        padding: 24px 20px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        box-shadow: var(--shadow-light);
+        transition: var(--transition);
+      }
+
+      .stat-item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .stat-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #288154;
+        display: block;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 14px;
+        color: #288154;
+        margin-top: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+      }
+
+      /* Actions */
+      .actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 40px;
+        animation: fadeInUp 0.6s ease-out 0.8s both;
+      }
+
+      .btn {
+        padding: 14px 28px;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 140px;
+        justify-content: center;
+      }
+
+      .btn-primary {
+        background-color: #205527;
+        color: #fff;
+        border-radius: 0;
+        border-color: transparent;
+        height: 48px;
+        padding: 0 16px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .btn-primary:hover {
+        background-color: #1a4520;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-success);
+      }
+
+      .btn-primary:active {
+        background-color: #153e1a;
+        transform: translateY(0);
+      }
+
+      .btn-secondary {
+        background-color: #fff;
+        color: #205527;
+        border: 2px solid #205527;
+        border-radius: 0;
+        height: 48px;
+        padding: 0 16px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .btn-secondary:hover {
+        background-color: #205527;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-light);
+      }
+
+      .btn-secondary:active {
+        background-color: #1a4520;
+        border-color: #1a4520;
+        transform: translateY(0);
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 48px;
+        padding: 32px 24px;
+        background: #eef0eb;
+        border: 2px solid var(--success-green);
+        border-radius: var(--border-radius-large);
+        box-shadow: var(--shadow-light);
+        animation: fadeInUp 0.6s ease-out 0.9s both;
+      }
+
+      .footer-text {
+        color: #288154;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      .footer-links {
+        margin-top: 15px;
+      }
+
+      .footer-links a {
+        color: #288154;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+        transition: var(--transition);
+        letter-spacing: 0.2px;
+      }
+
+      .footer-links a:hover {
+        color: var(--text-primary);
+        text-decoration: underline;
+      }
+
+      /* Animations */
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounceIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.3);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+        70% {
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes checkmark {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.3;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.3;
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+
+        .success-card {
+          padding: 30px 20px;
+          margin: 0 10px;
+        }
+
+        .success-title {
+          font-size: 28px;
+        }
+
+        .success-subtitle {
+          font-size: 16px;
+        }
+
+        .success-icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .success-icon i {
+          font-size: 28px;
+        }
+
+        .logo svg {
+          height: 40px;
+        }
+
+        .actions {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn {
+          width: 100%;
+          max-width: 280px;
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          max-width: 100%;
+        }
+
+        .code-value {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .success-card {
+          padding: 25px 15px;
+          margin: 0 5px;
+        }
+
+        .success-title {
+          font-size: 24px;
+        }
+
+        .logo {
+          font-size: 20px;
+        }
+
+        .logo svg {
+          height: 35px;
+        }
+
+        .footer-links a {
+          display: block;
+          margin: 10px 0;
+        }
+      }
+
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text-primary: #e8f5e8;
+          --text-secondary: #b8c8b8;
+          --text-muted: #8a9a8a;
+          --white: #1e2a1e;
+          --border-light: #4a5c4b;
+          --success-bg: #1a2a1a;
+          --success-border: #2d4a2d;
+        }
+      }
+
+      /* High contrast mode */
+      @media (prefers-contrast: high) {
+        .success-card {
+          border: 2px solid var(--heineken-green);
+        }
+
+        .btn {
+          border-width: 2px;
+        }
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <a href="/" class="logo">
+          <svg
+            width="212"
+            height="50"
+            viewBox="0 0 212 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M161.943 22.5762C161.943 22.5762 158.014 22.5762 156.749 22.5762C155.484 22.5762 154.552 22.9106 153.553 24.0478C152.555 25.185 146.229 32.4762 146.229 32.4762V22.5762H139.038V47.9284C139.038 48.7311 139.704 49.4 140.503 49.4H146.229V37.2256C146.229 37.2256 151.622 45.654 152.555 47.1257C153.487 48.5973 154.419 49.3331 156.616 49.3331C158.747 49.3331 162.475 49.3331 162.475 49.3331L152.488 33.5465L161.943 22.5762ZM131.648 22.5762C131.648 22.5762 116.134 22.5762 115.668 22.5762V46.925C115.668 48.2628 117 49.3331 118.331 49.3331H131.581C132.38 49.3331 133.046 48.6642 133.046 47.8615V44.3831H123.858C123.258 44.3831 122.792 43.9148 122.792 43.3128V37.6938H130.982V32.8107H122.792V27.4593H133.046V24.0478C133.046 23.2451 132.447 22.5762 131.648 22.5762ZM182.05 22.5762C182.05 22.5762 166.537 22.5762 166.071 22.5762V46.925C166.071 48.2628 167.402 49.3331 168.734 49.3331H181.984C182.783 49.3331 183.449 48.6642 183.449 47.8615V44.3831H174.26C173.661 44.3831 173.195 43.9148 173.195 43.3128V37.6938H181.385V32.8107H173.195V27.4593H183.449V24.0478C183.515 23.2451 182.849 22.5762 182.05 22.5762ZM80.4459 22.5762H73.255V47.9284C73.255 48.7311 73.9208 49.4 74.7198 49.4H80.4459V22.5762ZM65.3317 22.5762C65.3317 22.5762 49.818 22.5762 49.352 22.5762V46.925C49.352 48.3297 50.6836 49.3331 52.0153 49.3331H65.2651C66.0641 49.3331 66.7299 48.6642 66.7299 47.8615V44.3831H57.6082C57.0089 44.3831 56.5429 43.9148 56.5429 43.3128V37.6938H64.7325V32.8107H56.5429V27.4593H66.7965V24.0478C66.7965 23.2451 66.1307 22.5762 65.3317 22.5762ZM42.1611 22.5762H34.9702V32.8107H28.7115V22.5762H20.3887V23.6465C20.3887 23.6465 21.5206 24.0478 21.5206 25.4525V49.4H28.7115V37.7607H34.9702V49.4H42.1611V22.5762ZM108.41 22.5762V47.9284C108.41 48.7311 107.745 49.4 106.946 49.4H102.551L92.8968 34.0817C92.8968 34.0817 93.0965 35.3526 93.0965 36.958C93.0965 38.5634 93.0965 49.4 93.0965 49.4H87.77V22.6431C87.77 22.6431 88.6355 22.6431 91.2322 22.6431C93.03 22.6431 94.295 23.3789 95.2272 24.8505C96.0262 26.1215 103.35 37.6938 103.35 37.6938C103.35 37.6938 103.084 36.8911 103.084 34.8175C103.084 32.6769 103.084 22.71 103.084 22.71H108.41V22.5762ZM211.347 22.5762V23.6465C211.347 23.6465 210.215 24.1147 210.215 25.4525V47.9284C210.215 48.7311 209.549 49.4 208.817 49.4H204.422L194.768 34.0817C194.768 34.0817 194.967 35.3526 194.967 36.958C194.967 38.5634 194.967 49.4 194.967 49.4H189.641V22.6431C189.641 22.6431 190.506 22.6431 193.103 22.6431C194.901 22.6431 196.166 23.3789 197.098 24.8505C197.897 26.1215 205.221 37.6938 205.221 37.6938C205.221 37.6938 204.955 36.8911 204.955 34.8175C204.955 32.6769 204.955 22.71 204.955 22.71H211.347V22.5762Z"
+              fill="#00561F"
+            />
+            <path
+              d="M7.00559 32.3425C6.67268 32.61 6.2066 32.2756 6.33977 31.8742C6.53952 31.2722 10.135 20.1012 10.135 20.1012L0.214197 12.8099C-0.185297 12.5423 0.0144502 12.0072 0.480526 12.0072C1.07977 12.0072 12.7317 12.0072 12.7317 12.0072C12.7317 12.0072 16.3271 0.836154 16.5269 0.301016C16.66 -0.100339 17.2593 -0.100339 17.3924 0.301016C17.5922 0.903047 21.1876 12.0072 21.1876 12.0072C21.1876 12.0072 32.8395 12.0072 33.4388 12.0072C33.9048 12.0072 34.038 12.5423 33.7051 12.8099L27.7793 17.1579H20.7881L18.5909 10.4687L16.3937 17.1579H9.46914L15.1286 21.3052L12.9314 27.9944C12.9314 27.9944 7.40509 32.0749 7.00559 32.3425Z"
+              fill="#E30613"
+            />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Success Card -->
+      <div class="success-card">
+        <!-- Success Icon -->
+        <div class="success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+
+        <!-- Success Message -->
+        <h1 class="success-title">Boleto Validado com Sucesso</h1>
+        <p class="success-subtitle">
+          O código de barras foi verificado e confirmado como autêntico. Este
+          boleto é oficial da HEINEKEN® e está seguro para pagamento.
+        </p>
+
+        <!-- Code Display -->
+        <div class="code-display">
+          <div class="code-label">Código de Barras</div>
+          <div class="code-value">{{ codigo_formatado }}</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-number">{{ numero_digitados }}</span>
+            <div class="stat-label">Dígitos</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">47</span>
+            <div class="stat-label">Requeridos</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">✓</span>
+            <div class="stat-label">Status</div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <a href="/" class="btn btn-primary"> Nova Consulta </a>
+          <button onclick="copyToClipboard()" class="btn btn-secondary">
+            Falar com o atendimento
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p class="footer-text">Validador oficial de boletos Heineken</p>
+        <div class="footer-links">
+          <a href="https://www.heinekenbrasil.com.br" target="_blank"
+            >Heineken Brasil</a
+          >
+          <a href="https://www.heinekenbrasil.com.br/contato" target="_blank"
+            >Contato</a
+          >
+          <a
+            href="https://www.heinekenbrasil.com.br/validador-de-boleto"
+            target="_blank"
+            >Validador de Boletos</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Copy to clipboard functionality
+      function copyToClipboard() {
+        const codeValue = document.querySelector(".code-value").textContent;
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard
+            .writeText(codeValue)
+            .then(() => {
+              showToast("Código copiado para a área de transferência!");
+            })
+            .catch(() => {
+              fallbackCopyTextToClipboard(codeValue);
+            });
+        } else {
+          fallbackCopyTextToClipboard(codeValue);
+        }
+      }
+
+      function fallbackCopyTextToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          document.execCommand("copy");
+          showToast("Código copiado para a área de transferência!");
+        } catch (err) {
+          showToast(
+            "Erro ao copiar código. Tente selecionar e copiar manualmente."
+          );
+        }
+
+        document.body.removeChild(textArea);
+      }
+
+      function showToast(message) {
+        // Create toast element
+        const toast = document.createElement("div");
+        toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--heineken-green);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                font-weight: 500;
+                animation: slideInRight 0.3s ease-out;
+                max-width: 300px;
+            `;
+        toast.textContent = message;
+
+        // Add animation styles
+        const style = document.createElement("style");
+        style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(100%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                @keyframes slideOutRight {
+                    from {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                    to {
+                        opacity: 0;
+                        transform: translateX(100%);
+                    }
+                }
+            `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(toast);
+
+        // Remove toast after 3 seconds
+        setTimeout(() => {
+          toast.style.animation = "slideOutRight 0.3s ease-out";
+          setTimeout(() => {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+            if (style.parentNode) {
+              style.parentNode.removeChild(style);
+            }
+          }, 300);
+        }, 3000);
+      }
+
+      // Add some interactive feedback
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add hover effects to stat items
+        const statItems = document.querySelectorAll(".stat-item");
+        statItems.forEach((item) => {
+          item.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-5px)";
+            this.style.boxShadow = "0 8px 25px rgba(0, 130, 0, 0.15)";
+          });
+
+          item.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0)";
+            this.style.boxShadow = "none";
+          });
+        });
+
+        // Add click animation to buttons
+        const buttons = document.querySelectorAll(".btn");
+        buttons.forEach((button) => {
+          button.addEventListener("click", function (e) {
+            // Create ripple effect
+            const ripple = document.createElement("span");
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.3);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        pointer-events: none;
+                    `;
+
+            this.style.position = "relative";
+            this.style.overflow = "hidden";
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+              ripple.remove();
+            }, 600);
+          });
+        });
+
+        // Add ripple animation
+        const rippleStyle = document.createElement("style");
+        rippleStyle.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+        document.head.appendChild(rippleStyle);
+      });
+    </script>
+  </body>
+</html>
